@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TEST</title>
+  <title>Aneurysm</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,500,700|Material+Icons">
   <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -11,6 +11,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
   <style media="screen">
   .row{text-align: center;}
   </style>
@@ -18,10 +19,14 @@
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="nav nav-tabs mx-auto">
+    <a class="navbar-brand" id="aneurysm" href="#start">Aneurysm</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse" id="navbarSupportedContent">
+      <ul class="nav mx-auto">
         <li class="nav-item">
-          <a class="nav-link" id="home" href="#start">What is an Aneurysm</a>
+          <a class="nav-link" id="home" href="#content">What Causes an Aneurysm</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" id="ta" href="#types">Types of Aneurysm</a>
@@ -29,13 +34,17 @@
         <li class="nav-item">
           <a class="nav-link" id="de" href="#details">Details</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" id="Visualization" href="Visualization.html">Statistics of Aneurysm Detection</a>
+        </li>
       </ul>
     </div>
   </nav>
 
-  <div class="jumbotron">
+  <div class="jumbotron my-auto">
     <div id="Aneurysm">
-      <h1 class="display-4" id="page-title">Aneurysm</h1>
+      <h1 class="display-5" id="page-title">Aneurysm</h1>
+      <br/>
       <div id="start">
         <p class="lead">
           An aneurysm occurs when an artery's wall weakens and causes an abnormally large bulge.
@@ -51,7 +60,6 @@
           </div>
           <div class="display-6" id="content">
             <div>
-              <h3>What Causes an Aneurysm?</h3>
               <p class="lead">
                 Although the exact cause of an aneurysm is unclear, certain factors contribute to the condition.
                 For example, damaged tissue in the arteries can play a role. The arteries can be harmed by blockages,
@@ -106,9 +114,7 @@
           </div>
         </div>
 
-
         <div id="details" class="table-responsive">
-          <br/>
           <div id="LS">
             <div>
               <h3>Locations:</h3>
@@ -138,15 +144,15 @@
               <input type="text" class="search1 search1-primary col-sm-4"  id="search1"/>
               <br/><br/>
               <input type="button" class="btn btn-primary col-sm-4" align ="top-center" value="Search" id="btn3"/>
-              <br/>
-              <progress id="progressBar" style="display:none" value="0" max="100" style="width:300px;"></progress>
-              <span style="display:none" id="status"></span>
-              <h1 id="finalMessage"></h1>
+              <br/><br/>
+              <div id="busy">
+                <i class="fa fa-circle-o-notch fa-spin"></i>
+              </div>
             </form>
           </div>
           <br/><br/>
-          <table style="display:none" class="table table-bordered table-striped" id="employee_table">
-            <thead>
+          <table style="display:none" class="table table-bordered table-striped" id="mytable">
+            <thead class="thead-dark" id="headings">
               <tr>
                 <th>Status of aneurysm</th>
                 <th>Type of Aneurysm</th>

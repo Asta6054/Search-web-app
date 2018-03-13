@@ -3,6 +3,22 @@ function getData(url){
   $("#search1").ready(function(){
     url = url + "?s=" + $('#search').val();
     $.getJSON(url, function(data){
+      var sorted = data.sort(function (a, b) {
+        if (a[ 'Status of aneurysm'] > b[ 'Status of aneurysm'] || a['Type of Aneurysm'] > b['Type of Aneurysm'] ) {
+          return 1;
+        }
+        if (a[ 'Status of aneurysm'] < b[ 'Status of aneurysm'] || a['Type of Aneurysm'] > b['Type of Aneurysm']) {
+          return -1;
+        }
+        if (a['Aneurysm 1 location'] > b['Aneurysm 1 location'] || a['Size of Aneurysm 1'] > b['Size of Aneurysm 1'] ) {
+          return 1;
+        }
+        if (a['Aneurysm 1 location'] < b['Aneurysm 1 location'] || a['Type of Aneurysm'] > b['Size of Aneurysm 1']) {
+          return -1;
+        }
+
+        return 0;
+      });
       var employee_data = '';
       var searchField = $('#search1').val();
       var expression = new RegExp(searchField, "i");
@@ -15,25 +31,23 @@ function getData(url){
           employee_data += '<td>'+value['Aneurysm 1 location']+'</td>';
           employee_data += '<td>'+value['Size of Aneurysm 1']+'</td>';
           employee_data += '</tr>';
+          $("#busy").hide();
           console.log(employee_data);
         }
       });
       $('#tableid').empty();
-      $('#employee_table').append(employee_data);
+      $('#mytable').append(employee_data);
     });
   });
 }
 $("#btn3").click(function() {
-  document.getElementById('employee_table').style.display="";
+  document.getElementById('mytable').style.display="";
   getData("https://spark-rest-api.herokuapp.com/bm-data/");
-  document.getElementById('progressBar').style.display="";
-  document.getElementById('status').style.display="";
-  progressBarSim(0);
-
+  $("#busy").show();
 });
 
 $("document").ready(function() {
-  $('#page-title').text($('#home').text());
+  $('#page-title').text($('#aneurysm').text());
   $("#content").hide();
   $("#details").hide();
   $("#types").hide();
@@ -55,9 +69,21 @@ $("#home").click(function() {
   console.log("home");
   $("#content").show();
   $("#details").hide();
+  $("#start").hide();
   $("#types").hide();
   $("#LS").hide();
 });
+
+$("#aneurysm").click(function() {
+  $('#page-title').text($('#aneurysm').text());
+  console.log("aneurysm");
+  $("#start").show();
+  $("#details").hide();
+  $("#types").hide();
+  $("#LS").hide();
+  $("#content").hide();
+});
+
 
 $("#de").click(function() {
   $('#page-title').text($('#de').text());
@@ -65,23 +91,7 @@ $("#de").click(function() {
   $("#details").show();
   $("#LS").show();
   $("#start").hide();
+  $("#busy").hide();
   $("#content").hide();
   $("#types").hide();
 });
-function progressBarSim(al) {
-  var bar = document.getElementById('progressBar');
-  var status = document.getElementById('status');
-  status.innerHTML = al+"%";
-  bar.value = al;
-  al++;
-  var sim = setTimeout("progressBarSim("+al+")",100);
-  if(al == 100){
-    status.innerHTML = "100%";
-    bar.value = 100;
-    clearTimeout(sim);
-    var finalMessage = document.getElementById('finalMessage');
-    finalMessage.innerHTML = "";
-  }
-}
-var amountLoaded = 0;
-progressBarSim(amountLoaded);
